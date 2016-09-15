@@ -1,0 +1,25 @@
+{
+  "name": "biz-connect",
+  "version": "1.0.0",
+  "description": "Simple way to connect local business with cusomers through sms.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "business",
+    "connect",
+    "customer"
+  ],
+  "author": "Waqid Munawar Volli",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "bootstrap": "^3.3.7",
+    "cors": "^2.8.0",
+    "express": "^4.14.0",
+    "jquery": "^3.1.0",
+    "mysql": "^2.11.1",
+    "twilio": "^2.10.0"
+  }
+}
