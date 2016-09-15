@@ -1,10 +1,10 @@
-var express = require('express');
-var cors = require("cors");
-var bodyParser = require("body-parser");
-var DBConnection = require("./lib/DBConnection");
-var app = express();
+const express = require('express');
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const DBConnection = require("./lib/DBConnection");
+const app = express();
 
-var weekdays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+const weekdays = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -25,11 +25,11 @@ app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/'
 
 app.get("/api/owner/:id", function(req, res) {
 
-    var connection = DBConnection();
+    const connection = DBConnection();
 
     connection.connect();
 
-    var query = `SELECT * FROM owner O,business B
+    const query = `SELECT * FROM owner O,business B
 					WHERE O.id=${req.params.id} AND O.id = B.owner_id`;
 
 
@@ -48,11 +48,11 @@ app.get("/api/owner/:id", function(req, res) {
 
 app.post("/api/notify", function(req, res) {
 
-    var connection = DBConnection();
+    const connection = DBConnection();
 
     connection.connect();
 
-    var query = `SELECT * FROM business_customer BC,customer C
+    const query = `SELECT * FROM business_customer BC,customer C
 				WHERE  BC.business_id = ${req.body.business_id}
 				AND BC.customer_id = C.id AND BC.active=1`;
 
@@ -61,13 +61,13 @@ app.post("/api/notify", function(req, res) {
         if (!err) {
 
             //get day of week
-            var today = weekdays[new Date().getDay()];
+            const today = weekdays[new Date().getDay()];
             //for each subscribed customer, send SMS if applicable
             for (let customer of rows) {
                 //if customer has not opted for alerts today, skip
                 if (customer[today] == 0) break;
                 //format the customer phone number with country code
-                var phone = `+${customer.country_code}${customer.mobile}`;
+                const phone = `+${customer.country_code}${customer.mobile}`;
                 //notify the customer
                 console.log(`Attempting to send SMS to ${phone}`);
                 notifyCustomer(phone, req.body.text);
@@ -94,10 +94,10 @@ module.exports = app;
 
 function notifyCustomer(phone, msg) {
     // Twilio Credentials
-    var accountSid = '<accountSid>';
-    var authToken = '<authToken>';
+    const accountSid = '<accountSid>';
+    const authToken = '<authToken>';
     //require the Twilio module and create a REST client
-    var client = require('twilio')(accountSid, authToken);
+    const client = require('twilio')(accountSid, authToken);
     client.messages.create({
         to: phone,
         from: "+<number>",

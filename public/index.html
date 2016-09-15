@@ -9,7 +9,7 @@
 	</style>
 </head
 <body>
-	
+
 <div class="well" id="biz-list"></div>
 
 
@@ -19,9 +19,9 @@
 		type: "GET",
 		url: "/api/owner/1"
 	}).done(function(res){
-		
+
 		$.each(res, function(index, biz){
-			
+
 			// list.append(`<h4>${biz.name} <small>${biz.mobile}</small></h4>`);
 			list.append(`<h4>${biz.name}</h4>`);
 			list.append(`<textarea rows="5" id="biz-${biz.id}" placeHolder= "Enter notification SMS text"/>`);
@@ -29,11 +29,11 @@
 			list.append("<hr>");
 
 			$(`#biz-${biz.id}-send`).click(function(){
-				var msg = $(`#biz-${biz.id}`).val();
+				const msg = $(`#biz-${biz.id}`).val();
 				console.log(`Sending ${msg}`);
 			});
 		});
-		
+
 	});
 </script>
 </body>
