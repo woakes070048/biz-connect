@@ -2,14 +2,17 @@
 <html>
 <head>
 	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/lib/toaster.css">
 	<script src="/jquery/jquery.min.js"></script>
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/lib/toaster.js"></script>
 	<style>
 		textarea{width:100%}
+		h6{text-align: center}
 	</style>
 </head
 <body>
-
+<h6>BizConnect</h6>
 <div class="well" id="biz-list"></div>
 
 
@@ -31,6 +34,17 @@
 			$(`#biz-${biz.id}-send`).click(function(){
 				const msg = $(`#biz-${biz.id}`).val();
 				console.log(`Sending ${msg}`);
+				$.ajax({
+					type: "POST",
+					url: "/api/notify",
+					data: {
+						business_id : 1,
+						text : msg
+					}
+				}).done(function(res){
+					toastr["success"](res.msg);
+					$('textarea').val('');
+				});
 			});
 		});
 
